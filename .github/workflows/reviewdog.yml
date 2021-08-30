@@ -4,7 +4,6 @@ on: [pull_request]
 
 jobs:
   golangci-lint:
-    needs: setup
     runs-on: ubuntu-latest
     name: runner / golangci-lint
     steps:
