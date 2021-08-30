@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  web:
+    image: golang:1.17
+    ports:
+      - "1323:1323"
+    volumes:
+      - ./tmp/go:/go
+      - ./:/app
+    working_dir: /app
+    command: ["go", "run", "server.go"]
+  test:
+    image: golang:1.17
+    volumes:
+      - ./tmp/go:/go
+      - ./:/app
+    working_dir: /app
+    command: ["go", "test", "-v"]
+  lint:
+    image: golangci/golangci-lint
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: ["golangci-lint", "run", "--config=.github/.golangci.yml", "-e ./tmp", "--fast", "./"]
